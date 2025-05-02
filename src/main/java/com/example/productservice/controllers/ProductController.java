@@ -1,6 +1,7 @@
 package com.example.productservice.controllers;
 
 import com.example.productservice.models.Product;
+import com.example.productservice.service.ProductService;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,29 +17,41 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/products")
 public class ProductController {
+
+  private final ProductService productService;
+
+  public ProductController(ProductService productService) {
+    this.productService = productService;
+  }
+
   @GetMapping("/{id}")
-  public Product getSingleProduct(@PathVariable("id")  Long id){
-    return new Product();
+  public Product getSingleProduct(@PathVariable("id") Long id) {
+    return productService.getProduct(id);
 
   }
+
   @GetMapping
-  public List<Product>getAllProducts(){
+  public List<Product> getAllProducts() {
     return new ArrayList<>();
   }
+
   @PostMapping
-  public Product createProduct(){
+  public Product createProduct(@RequestBody Product product) {
     return new Product();
   }
+
   @DeleteMapping
-  public void deleteProduct(@PathVariable("/{id}") Long id){
+  public void deleteProduct(@PathVariable("/{id}") Long id) {
 
   }
+
   @PatchMapping("/{id}")
-  public void updateProduct(@PathVariable("id") Long productId,@RequestBody Product product){
+  public void updateProduct(@PathVariable("id") Long productId, @RequestBody Product product) {
 
   }
+
   @PutMapping("/{id}")
-  public void replaceProduct(@PathVariable("id") Long productId,@RequestBody Product product){
+  public void replaceProduct(@PathVariable("id") Long productId, @RequestBody Product product) {
 
   }
 
