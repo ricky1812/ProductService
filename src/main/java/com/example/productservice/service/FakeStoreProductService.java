@@ -1,6 +1,7 @@
 package com.example.productservice.service;
 
 import com.example.productservice.dto.FakeStoreProductDTO;
+import com.example.productservice.exceptions.ProductNotFoundException;
 import com.example.productservice.models.Category;
 import com.example.productservice.models.Product;
 import java.util.Arrays;
@@ -20,11 +21,12 @@ public class FakeStoreProductService implements ProductService {
 
 
   @Override
-  public Product getProduct(Long id) {
-    RestTemplate restTemplate = new RestTemplate();
-    FakeStoreProductDTO fakeStoreProductDTO = restTemplate.getForObject(
-        "https://fakestoreapi.com/products/" + id, FakeStoreProductDTO.class);
-    return convertFakeStroreProductDTOtoProduct(fakeStoreProductDTO);
+  public Product getProduct(Long id) throws ProductNotFoundException {
+    throw new ProductNotFoundException(id,"Product not found for given id");
+//    RestTemplate restTemplate = new RestTemplate();
+//    FakeStoreProductDTO fakeStoreProductDTO = restTemplate.getForObject(
+//        "https://fakestoreapi.com/products/" + id, FakeStoreProductDTO.class);
+//    return convertFakeStroreProductDTOtoProduct(fakeStoreProductDTO);
 
   }
 
