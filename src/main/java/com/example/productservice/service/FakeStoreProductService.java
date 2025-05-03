@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-@Service
+@Service("fakeProductService")
 public class FakeStoreProductService implements ProductService {
 
   private final RestTemplate restTemplate;
