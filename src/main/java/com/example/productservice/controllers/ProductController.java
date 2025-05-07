@@ -2,6 +2,7 @@ package com.example.productservice.controllers;
 
 import com.example.productservice.exceptions.ProductNotFoundException;
 import com.example.productservice.models.Product;
+import com.example.productservice.repository.projections.ProductTitleDescription;
 import com.example.productservice.service.ProductService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -31,6 +32,13 @@ public class ProductController {
   public ResponseEntity<Product> getSingleProduct(@PathVariable("id") Long id)
       throws ProductNotFoundException {
     return new ResponseEntity<>(productService.getProduct(id), HttpStatus.OK);
+  }
+  @GetMapping("/title")
+  public ResponseEntity<List<ProductTitleDescription>> getAllProductWithTitleDescription(){
+    return new ResponseEntity<>(
+        productService.getProductTitleDescription(),
+        HttpStatus.OK
+    );
   }
 
   @GetMapping

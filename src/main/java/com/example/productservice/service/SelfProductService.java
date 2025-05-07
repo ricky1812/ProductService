@@ -5,6 +5,7 @@ import com.example.productservice.models.Category;
 import com.example.productservice.models.Product;
 import com.example.productservice.repository.CategoryRepository;
 import com.example.productservice.repository.ProductRepository;
+import com.example.productservice.repository.projections.ProductTitleDescription;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,10 @@ public class SelfProductService implements ProductService {
       throw new ProductNotFoundException(id, "Product not found");
     }
     return optionalProduct.get();
+  }
+  @Override
+  public List<ProductTitleDescription> getProductTitleDescription() {
+    return productRepository.getProductTitleDescription();
   }
 
   @Override
