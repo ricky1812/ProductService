@@ -65,6 +65,11 @@ public class ProductController {
   public void replaceProduct(@PathVariable("id") Long productId, @RequestBody Product product) {
 
   }
+  @GetMapping("/initialize")
+  public void initialize() {
+    productService.intializeProduct();
+  }
+
 
 
 }

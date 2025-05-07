@@ -1,25 +1,32 @@
 package com.example.productservice.service;
 
+import com.example.productservice.dto.FakeStoreProductDTO;
 import com.example.productservice.exceptions.ProductNotFoundException;
 import com.example.productservice.models.Category;
 import com.example.productservice.models.Product;
 import com.example.productservice.repository.CategoryRepository;
 import com.example.productservice.repository.ProductRepository;
 import com.example.productservice.repository.projections.ProductTitleDescription;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
 @Service("selfProductService")
 public class SelfProductService implements ProductService {
 
   private final ProductRepository productRepository;
   private final CategoryRepository categoryRepository;
+  private RestTemplate restTemplate;
 
   public SelfProductService(ProductRepository productRepository,
-      CategoryRepository categoryRepository) {
+      CategoryRepository categoryRepository,RestTemplate restTemplate) {
     this.productRepository = productRepository;
     this.categoryRepository = categoryRepository;
+    this.restTemplate = restTemplate;
   }
 
   @Override
@@ -73,4 +80,26 @@ public class SelfProductService implements ProductService {
   public void replaceProduct(Long id, Product product) {
 
   }
+  @Override
+  public void intializeProduct(){
+    FakeStoreProductDTO[] fakeStoreProductDTOS = restTemplate.getForObject(
+        "https://fakestoreapi.com/products", FakeStoreProductDTO[].class);
+    System.out.println(fakeStoreProductDTOS.length);
+    List<Product> productList = Arrays.asList(fakeStoreProductDTOS).stream()
+        .map(x -> convertFakeStroreProductDTOtoProduct(x)).collect(Collectors.toList());
+    for(Product product : productList) {
+      createProduct(product);
+    }
+  }
+  private Product convertFakeStroreProductDTOtoProduct(FakeStoreProductDTO fakeStoreProductDTO) {
+    Product product = new Product();
+    product.setTitle(fakeStoreProductDTO.getTitle());
+    product.setPrice(fakeStoreProductDTO.getPrice());
+   // product.setDescription(fakeStoreProductDTO.getDescription());
+    product.setImage(fakeStoreProductDTO.getImage());
+    product.setCategory(new Category());
+    product.getCategory().setValue(fakeStoreProductDTO.getCategory());
+    return product;
+  }
+
 }
