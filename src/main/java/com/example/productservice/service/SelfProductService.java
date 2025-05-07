@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 @Service("selfProductService")
@@ -23,7 +22,7 @@ public class SelfProductService implements ProductService {
   private RestTemplate restTemplate;
 
   public SelfProductService(ProductRepository productRepository,
-      CategoryRepository categoryRepository,RestTemplate restTemplate) {
+      CategoryRepository categoryRepository, RestTemplate restTemplate) {
     this.productRepository = productRepository;
     this.categoryRepository = categoryRepository;
     this.restTemplate = restTemplate;
@@ -37,6 +36,7 @@ public class SelfProductService implements ProductService {
     }
     return optionalProduct.get();
   }
+
   @Override
   public List<ProductTitleDescription> getProductTitleDescription() {
     return productRepository.getProductTitleDescription();
@@ -80,22 +80,23 @@ public class SelfProductService implements ProductService {
   public void replaceProduct(Long id, Product product) {
 
   }
+
   @Override
-  public void intializeProduct(){
+  public void intializeProduct() {
     FakeStoreProductDTO[] fakeStoreProductDTOS = restTemplate.getForObject(
         "https://fakestoreapi.com/products", FakeStoreProductDTO[].class);
-    System.out.println(fakeStoreProductDTOS.length);
     List<Product> productList = Arrays.asList(fakeStoreProductDTOS).stream()
         .map(x -> convertFakeStroreProductDTOtoProduct(x)).collect(Collectors.toList());
-    for(Product product : productList) {
+    for (Product product : productList) {
       createProduct(product);
     }
   }
+
   private Product convertFakeStroreProductDTOtoProduct(FakeStoreProductDTO fakeStoreProductDTO) {
     Product product = new Product();
     product.setTitle(fakeStoreProductDTO.getTitle());
     product.setPrice(fakeStoreProductDTO.getPrice());
-   // product.setDescription(fakeStoreProductDTO.getDescription());
+    // product.setDescription(fakeStoreProductDTO.getDescription());
     product.setImage(fakeStoreProductDTO.getImage());
     product.setCategory(new Category());
     product.getCategory().setValue(fakeStoreProductDTO.getCategory());

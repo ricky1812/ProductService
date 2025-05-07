@@ -33,8 +33,9 @@ public class ProductController {
       throws ProductNotFoundException {
     return new ResponseEntity<>(productService.getProduct(id), HttpStatus.OK);
   }
+
   @GetMapping("/title")
-  public ResponseEntity<List<ProductTitleDescription>> getAllProductWithTitleDescription(){
+  public ResponseEntity<List<ProductTitleDescription>> getAllProductWithTitleDescription() {
     return new ResponseEntity<>(
         productService.getProductTitleDescription(),
         HttpStatus.OK
@@ -65,11 +66,11 @@ public class ProductController {
   public void replaceProduct(@PathVariable("id") Long productId, @RequestBody Product product) {
 
   }
+
   @GetMapping("/initialize")
   public void initialize() {
     productService.intializeProduct();
   }
-
 
 
 }

@@ -6,11 +6,12 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ProductNotFoundException extends Exception {
+
   private Long productID;
 
-  public ProductNotFoundException(Long productID,String message) {
+  public ProductNotFoundException(Long productID, String message) {
     super(message);
-    this.productID=productID;
+    this.productID = productID;
   }
 
 }

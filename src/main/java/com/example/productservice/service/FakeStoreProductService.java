@@ -23,7 +23,7 @@ public class FakeStoreProductService implements ProductService {
 
   @Override
   public Product getProduct(Long id) throws ProductNotFoundException {
-    throw new ProductNotFoundException(id,"Product not found for given id");
+    throw new ProductNotFoundException(id, "Product not found for given id");
 //    RestTemplate restTemplate = new RestTemplate();
 //    FakeStoreProductDTO fakeStoreProductDTO = restTemplate.getForObject(
 //        "https://fakestoreapi.com/products/" + id, FakeStoreProductDTO.class);

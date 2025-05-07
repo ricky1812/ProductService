@@ -1,7 +1,5 @@
 package com.example.productservice.models;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import lombok.Getter;
@@ -9,8 +7,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Entity(name="products")
+@Entity(name = "products")
 public class Product extends BaseModel {
+
   private Long id;
   private String title;
   private String description;

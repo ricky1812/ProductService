@@ -6,6 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ProductNotFondDTo {
+
   private String message;
   private String resolution;
 
