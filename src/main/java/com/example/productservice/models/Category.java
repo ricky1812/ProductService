@@ -16,5 +16,6 @@ public class Category extends BaseModel {
   private String value;
 //  @OneToMany(mappedBy = "category")
 //  List<Product> products;
+  private String description;
 
 }
